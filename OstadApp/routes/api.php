@@ -40,4 +40,14 @@ Route::get('/page',[BookController::class,'page']);
 
 
 // post request route handler
-Route::post('/submit',[BookController::class,'createPost']);
+Route::post('/submit',function(Request $request){
+    $email = $request->input('email');
+    if($email){
+        return array(
+            "success"=> true,
+            "message"=> "Form submitted successfully."
+        );
+    }else{
+        return "Email must not be empty!";
+    }
+});

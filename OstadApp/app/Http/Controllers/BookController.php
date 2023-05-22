@@ -100,22 +100,7 @@ class BookController extends Controller
 
 
 
-    // email input post in route
-
-    function createPost(Request $request){
-
-        $email=$request->input('email');
-
-        return response()->json([
-
-            'data'=>$email,
-            'success'=>true,
-            'message'=>'Form Submitted Successfully', 
-        
-        ]);
-
-    }
-
+ 
 
 
 
