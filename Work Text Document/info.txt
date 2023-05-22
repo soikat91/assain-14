@@ -1,0 +1,133 @@
+1.Question: input filed post request name
+
+Route::post('/name',[BookController::class,'createName']);
+
+    function createName( Request $request){
+   
+        $name=$request->input('name');
+    
+        return "Name={$name}";
+    }
+
+
+    
+
+2.Quesition: header code for userAgent
+Route::post('/UserAgent',[BookController::class,'userAgent']);
+
+    function userAgent(Request $request){
+
+        $userAgent=$request->header('User-Agent');
+
+        return "User-Agent={$userAgent}";
+
+    }
+
+
+
+
+  3.Question:  create  Json Response File 
+
+Route::get('/response',[BookController::class,'CreateJson']);
+
+    function CreateJson(){
+
+        $data=[  
+            'name'=>'John Doe',
+            'age'=>25,     
+        ];
+
+        $response=[
+            'message'=>'success',
+            'data'=>$data
+        ];
+
+        return response()->json($response);    
+
+    }
+
+
+   4.Quesition: file uploaded 
+
+Route::post('/upload',[BookController::class,'photo']);
+    function photo(Request $request){
+
+        if($request->hasFile('avatar')){
+
+            $avatar=$request->file('avatar');
+            $newAvatar=$avatar->getClientOriginalName();
+            $path=public_path('uploads');
+            
+            $avatar->move($path,$newAvatar);
+            return response()->json([
+                'message' => 'File uploaded successfully',
+                'file' => $newAvatar
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'No file was uploaded'
+        ], 400);
+
+        }
+
+
+    5.Quesition: cookie rememberToken
+
+Route::post('/Cookie',[BookController::class,'rememberToken']);
+
+    function rememberToken(Request $request){
+
+        $rememberToken=$request->cookie('remember_token',null);
+
+        if($rememberToken !== null){
+
+             return "Cookie Set";
+        }else{
+            return "Cookie Null";
+        }
+
+    }
+
+
+
+
+
+   6.Quesition: query parameter code
+    Route::get('/page',[BookController::class,'page']);
+
+    function page(Request $request){
+
+        $page=$request->query('page',null);
+
+        if($page===null){
+            $page=null;
+
+        }else{
+            return $page;
+        }
+    }
+
+
+
+    7.Question: email input post in route
+    Route::post('/submit',[BookController::class,'createPost']);
+
+    function createPost(Request $request){
+
+        $email=$request->input('email');
+
+        return response()->json([
+
+            'data'=>$email,
+            'success'=>true,
+            'message'=>'Form Submitted Successfully', 
+        
+        ]);
+
+    }
+
+
+
+
+
